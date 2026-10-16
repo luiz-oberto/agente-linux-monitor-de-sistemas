@@ -3,6 +3,8 @@ import ollama
 
 from config import MODELO, MAX_ITERACOES
 from tools import FERRAMENTAS
+from time import perf_counter
+from logger import logger
 
 
 def executar_agente(mensagens: list) -> str:
@@ -39,13 +41,37 @@ def executar_agente(mensagens: list) -> str:
             else:
                 print(f"[Executando: {nome}]")
 
+                logger.info(
+                    "FERRAMENTA_INICIADA | %s", nome
+                )
+
+                inicio = perf_counter()
+
                 try:
                     resultado = FERRAMENTAS[nome](
                         **chamada.function.arguments
                     )
 
-                except Exception as erro:
-                    resultado = f"Erro ao consultar: {erro}"
+                    duracao = perf_counter() - inicio
+
+                    logger.info(
+                        "FERRAMENTA_CONCLUIDA | %s | %.3fs",
+                        nome,
+                        duracao
+                    )
+
+                except Exception:
+                    duracao = perf_counter() - inicio
+
+                    logger.exception(
+                        "FERRAMENTA_ERRO | %s | %.3fs",
+                        nome,
+                        duracao
+                    )
+
+                    resultado = (
+                        "Não foi possível executar a ferramenta."
+                    )
 
             mensagens.append({
                 "role": "tool",

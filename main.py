@@ -1,9 +1,20 @@
 
 from config import INSTRUCOES
 from agent.core import executar_agente
+from logger import logger
 
+COMANDOS_SAIDA = {
+    "sair",
+    "saiir",
+    "exit",
+    "quit",
+    "q",
+    "encerrar"
+}
 
 def main():
+
+    logger.info("AGENTE_INICIADO")
 
     mensagens = [
         {
@@ -26,7 +37,8 @@ def main():
             print("\nEncerrando agente...")
             break
 
-        if pergunta.lower() == "sair":
+        if pergunta.lower() in COMANDOS_SAIDA:
+            print("\nAté logo! \nEncerrando agente...")
             break
 
         if not pergunta:
@@ -41,9 +53,11 @@ def main():
             resposta = executar_agente(mensagens)
             print("\nAgente:", resposta)
 
-        except Exception as erro:
-            print(f"\nErro na execução do agente: {erro}")
+        except Exception:
+            logger.exception("ERRO_EXECUCAO_AGENTE")
+            print("\nOcorreu um erro na execução do agente.")
 
+    logger.info("AGENTE_ENCERRADO")
 
 if __name__ == "__main__":
     main()

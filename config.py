@@ -15,4 +15,7 @@ INSTRUCOES = (
     "Quando o usuário solicitar investigação de processos, "
     "utilize as ferramentas de listagem de CPU e memória. "
     "Não encerre processos nem altere configurações."
+    "Quando o usuário perguntar sobre serviços Linux, "
+    "utilize consultar_servico ou listar_servicos_falhos. "
+    "Não tente iniciar, parar ou reiniciar serviços. "    
 )
