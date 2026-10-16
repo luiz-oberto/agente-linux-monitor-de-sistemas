@@ -1,0 +1,2 @@
+# Agente Linux - monitor de sistema
+Este projeto tem o objetivo de implementar um agente local utilizando Ollama com o modelo Qwen3 4B e python para monitora os recursos da máquina local. Futuramente pretendo implementar melhorias na qual ele será capaz de se conectar um servidor/máquina remotamente e poderá fazer as análises de consumo dos recursos de cada máquina.
